@@ -9,17 +9,32 @@ DISCLAIMER: Since there are loads of places where they don't scan tickets (busse
 and due to the fact that this ticket easily passes an eye inspection,
 It has to be mentioned that I (the author) forbid and certainly DON'T ENDORSE illegal use of this ticket.
 
+# Features
+
+- [x] Ticket UI (+animation, qr code click alert, etc.)
+- [x] Display User data / Generate fake data
+- [x] Profile page (for editing user data)
+- [ ] Reverse engineer and impl. actual ticket barcode
+- [ ] Generate the safety picture at the bottom of original ticket
+
 # How to use (iphone)
 
 1. Open the website
 
 2. Click on "Share"
+
    ![Clicking on share](./readme/setup-1.jpg)
+
 3. Click on "View More"
+
    ![Clicking on share](./readme/setup-2.jpg)
+
 4. Add to home screen
+
    ![Clicking on share](./readme/setup-3.jpg)
+
 5. Click on "Add"
+
    ![Clicking on share](./readme/setup-4.jpg)
 
 # German translation

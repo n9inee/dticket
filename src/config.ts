@@ -1,17 +1,23 @@
 let config: Config;
 
-const fileDataURL = (file: any) =>
+const fileDataURL = async (file: Blob) => {
+  const fr = new FileReader();
+  fr.onload = () => {
+    config.pic = fr.result as string;
+  };
+  fr.onerror = () => alert("Error loading pic!");
+  fr.readAsDataURL(file);
+};
+/* const fileDataURL = (file: any) =>
   new Promise((resolve, reject) => {
     let fr = new FileReader();
     fr.onload = () => resolve(fr.result);
     fr.onerror = reject;
     fr.readAsDataURL(file);
   });
-
+ */
 function applyImage(file: any) {
-  fileDataURL(file)
-    .then((data) => (config.pic = data as unknown as string))
-    .catch((err) => console.log(err));
+  fileDataURL(file);
 }
 
 export default class Config {
@@ -97,7 +103,10 @@ export default class Config {
       "#ticket-header > div > p:nth-child(2)",
     ) as Element;
     const dataContainer = document.querySelectorAll("#data-container > p");
-    const pic = document.querySelector("#data-container > div > img");
+    const dataPicContainer = document.getElementById(
+      "data-pic-container",
+    ) as HTMLElement;
+    const dataPic = document.getElementById("data-pic") as HTMLElement;
     const qr = document.getElementById("qr");
 
     dbHeaderText.textContent = "Gültig vom " + this.ticketStart;
@@ -106,7 +115,7 @@ export default class Config {
 
     (dataContainer[0] as HTMLElement).textContent = this.name;
     (dataContainer[1] as HTMLElement).textContent = this.birth;
-    pic?.setAttribute("src", this.pic);
+    dataPic.setAttribute("src", this.pic);
     ((dataContainer[2] as HTMLElement).firstChild as HTMLElement).textContent =
       `CIV ${this.civ}`;
     (dataContainer[8] as HTMLElement).textContent =
@@ -121,9 +130,9 @@ export default class Config {
       `Gesamtpreis: ${this.price}€`;
     (dataContainer[15] as HTMLElement).textContent = `Ticketcode: ${this.code}`;
 
-    if (this.pic === "") {
-      pic?.setAttribute("hidden", "");
-    }
+    this.pic === ""
+      ? dataPicContainer.setAttribute("hidden", "")
+      : dataPicContainer.removeAttribute("hidden");
 
     (document.getElementById("data-name") as HTMLInputElement).value =
       this.name;
@@ -150,9 +159,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const dataBirth = document.getElementById("data-birth") as HTMLInputElement;
   const dataQR = document.getElementById("data-qr") as HTMLInputElement;
 
-  document.getElementById("data-pic")?.addEventListener("change", (e) => {
-    applyImage((e.target as HTMLInputElement).files?.[0]);
-  });
+  document
+    .getElementById("data-pic-chooser")
+    ?.addEventListener("change", (e) => {
+      applyImage((e.target as HTMLInputElement).files?.[0]);
+    });
 
   document.getElementById("data-save")?.addEventListener("click", (e) => {
     if (dataName.value) {

@@ -48,10 +48,6 @@ main {
   display: flex;
   flex-direction: column;
 }
-hr {
-  color: var(--text-light-secondary);
-  opacity: 0.5;
-}
 
 section {
   width: 100%;
@@ -60,10 +56,6 @@ section {
   padding: 10px 30px 0 30px;
 
   overflow: scroll;
-
-  hr {
-    margin: 5px 0 5px 0;
-  }
 }
 
 img {
