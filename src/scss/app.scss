@@ -1,0 +1,15 @@
+@import "normalize";
+@import "layout";
+
+@import "pages/journeys";
+@import "pages/profile";
+
+.pic {
+  width: auto;
+  height: auto;
+  max-height: 200px;
+}
+#qr {
+  width: 100%;
+  height: auto;
+}
