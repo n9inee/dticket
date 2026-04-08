@@ -13,13 +13,9 @@ document.addEventListener("DOMContentLoaded", () => {
     "journeys-page-btn",
   ) as HTMLElement;
 
-  profileSecBtn.addEventListener("click", () => {
-    window.location.hash = "#profile";
-    location.reload();
-  });
-
-  const hash = window.location.hash;
-  if (window.location.hash === "#profile") {
+  let params = new URLSearchParams(document.location.search);
+  let page = params.get("page");
+  if (page === "profile") {
     profileSec.hidden = false;
     journeysSec.hidden = true;
 
