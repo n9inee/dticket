@@ -199,6 +199,7 @@ button,
 [type="reset"],
 [type="submit"] {
   -webkit-appearance: button;
+  appearance: button;
 }
 
 /**
@@ -348,4 +349,16 @@ template {
 
 [hidden] {
   display: none;
+}
+
+/* Custom */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  all: unset;
+  display: block;
 }

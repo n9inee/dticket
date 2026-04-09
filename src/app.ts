@@ -1,42 +1,41 @@
 import "./config";
 
 document.addEventListener("DOMContentLoaded", () => {
-  // TODO: impl this
-  const activePageText = document.querySelector(
-    "#section-header > p",
-  ) as HTMLElement;
+  const headerText = document.querySelector("header > h1") as HTMLElement;
 
-  const profileSection = document.getElementById(
+  const sectionProfile = document.getElementById(
     "section-profile",
   ) as HTMLElement;
-  const profileSectionBtn = document.getElementById(
-    "section-profile-btn",
+  const navBtnProfile = document.getElementById(
+    "nav-btn-profile",
   ) as HTMLElement;
 
-  const journeysSection = document.getElementById(
-    "section-journeys",
+  const sectionTicket = document.getElementById(
+    "section-ticket",
   ) as HTMLElement;
-  const journeysSectionBtn = document.getElementById(
-    "section-journeys-btn",
+  const ticketBtnProfile = document.getElementById(
+    "nav-btn-ticket",
   ) as HTMLElement;
 
-  const currentPage = new URLSearchParams(document.location.search).get("page");
-  if (currentPage === "profile") {
+  const currentSection = new URLSearchParams(document.location.search).get(
+    "page",
+  );
+  if (currentSection === "profile") {
     // Set text of the page header
-    activePageText.textContent = "Settings";
+    headerText.textContent = "Settings";
 
-    profileSection.hidden = false;
-    profileSectionBtn.classList.add("active");
+    sectionProfile.hidden = false;
+    navBtnProfile.classList.add("active");
 
-    journeysSection.hidden = true;
-    journeysSectionBtn.classList.remove("active");
+    sectionTicket.hidden = true;
+    ticketBtnProfile.classList.remove("active");
   } else {
-    activePageText.textContent = "Subscription-Ticket";
+    headerText.textContent = "Abo-Ticket";
 
-    journeysSection.hidden = false;
-    journeysSectionBtn.classList.add("active");
+    sectionTicket.hidden = false;
+    ticketBtnProfile.classList.add("active");
 
-    profileSection.hidden = true;
-    profileSectionBtn.classList.remove("active");
+    sectionProfile.hidden = true;
+    navBtnProfile.classList.remove("active");
   }
 });

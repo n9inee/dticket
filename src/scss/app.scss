@@ -1,5 +1,239 @@
 @import "normalize";
-@import "layout";
 
-@import "pages/journeys";
-@import "pages/profile";
+@font-face {
+  font-family: "DB Screen Sans Digital";
+  src: url("https://db.onlinewebfonts.com/t/c7fb3c048c8214048961e7275273db9d.eot");
+  src:
+    url("https://db.onlinewebfonts.com/t/c7fb3c048c8214048961e7275273db9d.eot?#iefix")
+      format("embedded-opentype"),
+    url("https://db.onlinewebfonts.com/t/c7fb3c048c8214048961e7275273db9d.woff2")
+      format("woff2"),
+    url("https://db.onlinewebfonts.com/t/c7fb3c048c8214048961e7275273db9d.woff")
+      format("woff"),
+    url("https://db.onlinewebfonts.com/t/c7fb3c048c8214048961e7275273db9d.ttf")
+      format("truetype"),
+    url("https://db.onlinewebfonts.com/t/c7fb3c048c8214048961e7275273db9d.svg#DB Screen Sans Digital")
+      format("svg");
+}
+
+:root {
+  --bg: #2b2d37;
+  --bg-white: #fffeff;
+
+  --text: #040305;
+  --text-gray: #666873;
+  --text-light: #f1f3f6;
+  --text-light-secondary: #898b95;
+
+  --red: #dc3529;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+main {
+  width: 100%;
+  height: 100%;
+  font-family: "DB Screen Sans Digital";
+  background-color: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+}
+
+main {
+  /* Has to be flex because section takes up remaining space */
+  display: flex;
+  flex-direction: column;
+}
+header {
+  width: 100%;
+  height: 6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-light);
+  background-color: var(--bg);
+  overflow: hidden;
+  h1 {
+    color: var(--text-light);
+  }
+}
+section {
+  width: 100%;
+  flex-grow: 1;
+  padding: 0px 30px 0 30px;
+  background-color: var(--bg-white);
+  overflow: scroll;
+}
+
+#ticket {
+  &-header {
+    width: 100%;
+    height: 4rem;
+    padding: 15px;
+    gap: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    &-info-title {
+      color: var(--text-gray);
+    }
+
+    &-logo {
+      height: 90%;
+      width: auto;
+    }
+  }
+
+  &-ping-pong {
+    width: 100%;
+    height: 3rem;
+
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 25px;
+
+    &-logo {
+      height: calc(100% - 15px);
+      position: absolute;
+      left: 0;
+      animation: 8s slider-animation ease-in-out infinite;
+    }
+    @keyframes slider-animation {
+      0% {
+        left: 0;
+      }
+      50% {
+        left: calc(100% - 64px);
+      }
+      100% {
+        left: 0;
+      }
+    }
+  }
+
+  &-data {
+    &-barcode {
+      width: 100%;
+      max-width: 650px;
+      height: auto;
+      cursor: pointer;
+    }
+    hr {
+      margin: 15px 0 10px 0;
+    }
+    &-id {
+      width: auto;
+      height: auto;
+      max-height: 200px;
+    }
+  }
+}
+
+#profile {
+  &-data {
+    input[type="text"] {
+      width: 100%;
+      height: 4rem;
+
+      border-style: solid;
+      border-color: var(--text-gray);
+      border-width: 1.5px;
+      border-radius: 5px;
+      padding: 10px;
+      &:focus {
+        border-color: var(--red);
+      }
+    }
+
+    input[type="button"] {
+      width: 300px;
+      height: 100px;
+
+      border-style: solid;
+      border-color: var(--text-gray);
+      border-width: 1.5px;
+      border-radius: 5px;
+      padding: 10px;
+      cursor: pointer;
+      &:focus {
+        border-color: var(--red);
+      }
+    }
+  }
+}
+
+nav {
+  display: flex;
+  width: 100%;
+  height: 5rem;
+  padding: 10px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+
+  a {
+    width: 64px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-light-secondary);
+    text-decoration: none;
+
+    &.active {
+      color: var(--text-light);
+    }
+    svg {
+      width: 50%;
+
+      color: inherit;
+      height: auto;
+    }
+    p {
+      color: inherit;
+      font-size: 0.75rem;
+    }
+  }
+}
+
+#bottom-spacer {
+  height: 2rem;
+  width: 100%;
+  background-color: var(--bg);
+}
+
+img {
+  user-select: none;
+  -webkit-user-drag: none;
+}
+h1 {
+  margin: 0;
+  padding: 0;
+
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+h2 {
+  margin: 0;
+  padding: 0;
+
+  font-size: 1.05rem;
+  font-weight: bold;
+}
+hr {
+  color: var(--text-light-secondary);
+  opacity: 0.5;
+}
+.mini {
+  font-size: 0.9rem;
+  font-weight: bold;
+}

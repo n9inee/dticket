@@ -6,7 +6,7 @@ export default class Config {
   fullName: string = "Max Mustermann";
   birthday: string = "01.01.1990";
   barcode: string = defaultBarcode;
-  idPic: string = "";
+  id: string = "";
 
   ticketStart: string;
   ticketEnd: string;
@@ -58,6 +58,7 @@ export default class Config {
 
     if (stored) {
       Object.assign(this, JSON.parse(stored));
+      this.apply();
       return true;
     }
 
@@ -71,53 +72,70 @@ export default class Config {
   }
 
   apply() {
-    const validFromText = document.querySelector(
-      "#ticket-header > div > p:nth-child(2)",
+    const ticketHeaderDate = document.getElementById(
+      "ticket-header-info-date",
     ) as Element;
-    const dataContainerPs = document.querySelectorAll(
-      "#ticket-data-container > p",
-    );
-    const dataPicContainer = document.getElementById(
-      "ticket-data-pic-container",
+    const ticketDataBarcode = document.getElementById("ticket-data-barcode");
+    const ticketDataFullName = document.getElementById(
+      "ticket-data-full-name",
     ) as HTMLElement;
-    const dataPic = document.getElementById("ticket-data-pic") as HTMLElement;
-    const barcode = document.getElementById("ticket-data-barcode");
+    const ticketDataBirthday = document.getElementById(
+      "ticket-data-birthday",
+    ) as HTMLElement;
+    const ticketDataIdContainer = document.getElementById(
+      "ticket-data-id-container",
+    ) as HTMLElement;
+    const ticketDataId = document.getElementById(
+      "ticket-data-id",
+    ) as HTMLElement;
+    const ticketDataCIV = document.getElementById(
+      "ticket-data-civ",
+    ) as HTMLElement;
+    const ticketDataDateStart = document.getElementById(
+      "ticket-data-date-start",
+    ) as HTMLElement;
+    const ticketDataDateEnd = document.getElementById(
+      "ticket-data-date-end",
+    ) as HTMLElement;
+    const ticketDataOrderId = document.getElementById(
+      "ticket-data-order-id",
+    ) as HTMLElement;
+    const ticketDataPosition = document.getElementById(
+      "ticket-data-position",
+    ) as HTMLElement;
+    const ticketDataPrice = document.getElementById(
+      "ticket-data-price",
+    ) as HTMLElement;
+    const ticketDataCode = document.getElementById(
+      "ticket-data-code",
+    ) as HTMLElement;
 
-    validFromText.textContent = "Gültig vom " + this.ticketStart;
+    const profileDataFullName = document.getElementById(
+      "profile-data-full-name",
+    ) as HTMLInputElement;
+    const profileDataBirthday = document.getElementById(
+      "profile-data-birthday",
+    ) as HTMLInputElement;
 
-    barcode?.setAttribute("src", this.barcode);
+    ticketHeaderDate.textContent = `Gültig vom ${this.ticketStart}`;
+    ticketDataBarcode?.setAttribute("src", this.barcode);
+    ticketDataFullName.textContent = this.fullName;
+    ticketDataBirthday.textContent = this.birthday;
+    ticketDataId.setAttribute("src", this.id);
+    ticketDataCIV.textContent = `CIV ${this.civ}`;
+    ticketDataDateStart.textContent = `Von: ${this.ticketStart} 00:00 Uhr`;
+    ticketDataDateEnd.textContent = `Bis: ${this.ticketEnd} 00:00 Uhr`;
+    ticketDataOrderId.textContent = `Auftragsnummer: ${this.orderId}`;
+    ticketDataPosition.textContent = `Position: ${this.position}`;
+    ticketDataPrice.textContent = `Gesamtpreis: ${this.price}€`;
+    ticketDataCode.textContent = `Ticketcode: ${this.ticketCode}`;
 
-    (dataContainerPs[0] as HTMLElement).textContent = this.fullName;
-    (dataContainerPs[1] as HTMLElement).textContent = this.birthday;
-    dataPic.setAttribute("src", this.idPic);
-    (
-      (dataContainerPs[2] as HTMLElement).firstChild as HTMLElement
-    ).textContent = `CIV ${this.civ}`;
-    (dataContainerPs[8] as HTMLElement).textContent =
-      `Von: ${this.ticketStart} 00:00 Uhr`;
-    (dataContainerPs[9] as HTMLElement).textContent =
-      `Von: ${this.ticketEnd} 00:00 Uhr`;
-    (dataContainerPs[11] as HTMLElement).textContent =
-      `Auftragsnummer: ${this.orderId}`;
-    (dataContainerPs[12] as HTMLElement).textContent =
-      `Position: ${this.position}`;
-    (dataContainerPs[13] as HTMLElement).textContent =
-      `Gesamtpreis: ${this.price}€`;
-    (dataContainerPs[15] as HTMLElement).textContent =
-      `Ticketcode: ${this.ticketCode}`;
+    this.id === ""
+      ? ticketDataIdContainer.setAttribute("hidden", "")
+      : ticketDataIdContainer.removeAttribute("hidden");
 
-    this.idPic === ""
-      ? dataPicContainer.setAttribute("hidden", "")
-      : dataPicContainer.removeAttribute("hidden");
-
-    (document.getElementById("profile-data-name") as HTMLInputElement).value =
-      this.fullName;
-    (
-      document.getElementById("profile-data-birthday") as HTMLInputElement
-    ).value = this.birthday;
-    (
-      document.getElementById("profile-data-barcode") as HTMLInputElement
-    ).value = this.barcode;
+    profileDataFullName.value = this.fullName;
+    profileDataBirthday.value = this.birthday;
   }
 
   delete() {
@@ -141,30 +159,32 @@ const fileToDataUrl = async (
 
 document.addEventListener("DOMContentLoaded", () => {
   config = new Config();
-  const barcode = document.getElementById("ticket-data-barcode");
 
-  if (barcode !== null)
-    barcode.addEventListener("click", (e) => {
-      alert(config.orderId);
-    });
+  const ticketDataBarcode = document.getElementById(
+    "ticket-data-barcode",
+  ) as HTMLElement;
 
-  const dataFullName = document.getElementById(
-    "profile-data-name",
+  const profileDataFullName = document.getElementById(
+    "profile-data-full-name",
   ) as HTMLInputElement;
-  const dataBirthday = document.getElementById(
+  const profileDataBirthday = document.getElementById(
     "profile-data-birthday",
   ) as HTMLInputElement;
-  const dataBarcode = document.getElementById(
+  const profileDataBarcode = document.getElementById(
     "profile-data-barcode",
   ) as HTMLInputElement;
 
+  ticketDataBarcode.addEventListener("click", (e) => {
+    alert(config.orderId);
+  });
+
   document
-    .getElementById("profile-data-pic-chooser")
+    .getElementById("profile-data-id-btn")
     ?.addEventListener("change", (e) => {
       fileToDataUrl(
         (e.target as HTMLInputElement).files?.[0] as Blob,
         (res) => {
-          config.idPic = res;
+          config.id = res;
         },
         () => {
           alert("Couldn't load Image! Please try again or a different one!");
@@ -175,14 +195,16 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .getElementById("profile-data-save-btn")
     ?.addEventListener("click", (e) => {
-      if (dataFullName.value) {
-        config.fullName = dataFullName.value;
+      if (profileDataFullName.value) {
+        config.fullName = profileDataFullName.value;
       }
-      if (dataBirthday.value) {
-        config.birthday = dataBirthday.value;
+      if (profileDataBirthday.value) {
+        config.birthday = profileDataBirthday.value;
       }
-      if (dataBarcode.value) {
-        config.barcode = dataBarcode.value;
+      if (profileDataBarcode.value !== "") {
+        config.barcode = profileDataBarcode.value;
+      } else {
+        config.barcode = defaultBarcode;
       }
 
       config.save();
