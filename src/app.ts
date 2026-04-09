@@ -1,35 +1,42 @@
-import Config from "./config";
+import "./config";
 
 document.addEventListener("DOMContentLoaded", () => {
   // TODO: impl this
-  const headerText = document.querySelector("#header > p") as HTMLElement;
-
-  const profileSec = document.getElementById("profile-page") as HTMLElement;
-  const journeysSec = document.getElementById("journeys-page") as HTMLElement;
-  const profileSecBtn = document.getElementById(
-    "profile-page-btn",
-  ) as HTMLElement;
-  const journeysSecBtn = document.getElementById(
-    "journeys-page-btn",
+  const activePageText = document.querySelector(
+    "#section-header > p",
   ) as HTMLElement;
 
-  let params = new URLSearchParams(document.location.search);
-  let page = params.get("page");
-  if (page === "profile") {
-    profileSec.hidden = false;
-    journeysSec.hidden = true;
+  const profileSection = document.getElementById(
+    "section-profile",
+  ) as HTMLElement;
+  const profileSectionBtn = document.getElementById(
+    "section-profile-btn",
+  ) as HTMLElement;
 
-    profileSecBtn.classList.add("active");
-    journeysSecBtn.classList.remove("active");
+  const journeysSection = document.getElementById(
+    "section-journeys",
+  ) as HTMLElement;
+  const journeysSectionBtn = document.getElementById(
+    "section-journeys-btn",
+  ) as HTMLElement;
 
-    headerText.textContent = "Settings";
+  const currentPage = new URLSearchParams(document.location.search).get("page");
+  if (currentPage === "profile") {
+    // Set text of the page header
+    activePageText.textContent = "Settings";
+
+    profileSection.hidden = false;
+    profileSectionBtn.classList.add("active");
+
+    journeysSection.hidden = true;
+    journeysSectionBtn.classList.remove("active");
   } else {
-    profileSec.hidden = true;
-    journeysSec.hidden = false;
+    activePageText.textContent = "Subscription-Ticket";
 
-    profileSecBtn.classList.remove("active");
-    journeysSecBtn.classList.add("active");
+    journeysSection.hidden = false;
+    journeysSectionBtn.classList.add("active");
 
-    headerText.textContent = "Subscription-Ticket";
+    profileSection.hidden = true;
+    profileSectionBtn.classList.remove("active");
   }
 });
