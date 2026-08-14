@@ -1,6 +1,6 @@
 {
-  "name": "MyWebSite",
-  "short_name": "MySite",
+  "name": "DB-Ticket",
+  "short_name": "DB-Ticket",
   "icons": [
     {
       "src": "/public/favicon/web-app-manifest-192x192.png?v=39999999",
