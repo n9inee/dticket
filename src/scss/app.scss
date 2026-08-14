@@ -168,12 +168,12 @@ nav {
     display: flex;
     border-radius: 100px;
     position: absolute;
-    left: 10%;
-    right: 10%;
+    left: 7.5%;
+    right: 7.5%;
     bottom: 10;
     background-color: var(--bg);
-    width: 80%;
-    height: 4.5rem;
+    width: 85%;
+    height: 5rem;
     padding: 10px;
     flex-direction: row;
     align-items: center;
@@ -209,7 +209,7 @@ nav {
 }
 
 #bottom-spacer {
-    height: 6rem;
+    height: 7rem;
     width: 100%;
 }
 
