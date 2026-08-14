@@ -8,8 +8,6 @@ export default class Config {
   barcode: string = defaultBarcode;
   id: string = "";
 
-  ticketStart: string;
-  ticketEnd: string;
   civ: number;
   orderId: string;
   position: string = "00/11";
@@ -17,18 +15,6 @@ export default class Config {
   ticketCode: string;
 
   constructor() {
-    const fmt = new Intl.DateTimeFormat("de-DE", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-    });
-    const ticketStart = fmt.format(
-      new Date(new Date().getFullYear(), new Date().getMonth(), 1),
-    );
-    const ticketEnd = fmt.format(
-      new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0),
-    );
-
     let civ = Number.parseInt(
       Math.floor(Math.random() * 10000)
         .toString()
@@ -43,8 +29,6 @@ export default class Config {
         "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"[Math.floor(Math.random() * 36)],
     ).join("");
 
-    this.ticketStart = ticketStart;
-    this.ticketEnd = ticketEnd;
     this.civ = civ;
     this.orderId = orderId;
     this.ticketCode = code;
@@ -117,14 +101,26 @@ export default class Config {
       "profile-data-birthday",
     ) as HTMLInputElement;
 
-    ticketHeaderDate.textContent = `Gültig vom ${this.ticketStart}`;
+    const fmt = new Intl.DateTimeFormat("de-DE", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    });
+    const ticketStart = fmt.format(
+      new Date(new Date().getFullYear(), new Date().getMonth(), 1),
+    );
+    const ticketEnd = fmt.format(
+      new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0),
+    );
+
+    ticketHeaderDate.textContent = `Gültig vom ${ticketStart}`;
     ticketDataBarcode?.setAttribute("src", this.barcode);
     ticketDataFullName.textContent = this.fullName;
     ticketDataBirthday.textContent = this.birthday;
     ticketDataId.setAttribute("src", this.id);
     ticketDataCIV.textContent = `CIV ${this.civ}`;
-    ticketDataDateStart.textContent = `Von: ${this.ticketStart} 00:00 Uhr`;
-    ticketDataDateEnd.textContent = `Bis: ${this.ticketEnd} 00:00 Uhr`;
+    ticketDataDateStart.textContent = `Von: ${ticketStart} 00:00 Uhr`;
+    ticketDataDateEnd.textContent = `Bis: ${ticketEnd} 00:00 Uhr`;
     ticketDataOrderId.textContent = `Auftragsnummer: ${this.orderId}`;
     ticketDataPosition.textContent = `Position: ${this.position}`;
     ticketDataPrice.textContent = `Gesamtpreis: ${this.price}€`;

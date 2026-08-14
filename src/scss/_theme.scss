@@ -1,0 +1,35 @@
+@font-face {
+    font-family: "DB Screen Sans Digital";
+    src: url("https://db.onlinewebfonts.com/t/c7fb3c048c8214048961e7275273db9d.eot");
+    src:
+        url("https://db.onlinewebfonts.com/t/c7fb3c048c8214048961e7275273db9d.eot?#iefix")
+            format("embedded-opentype"),
+        url("https://db.onlinewebfonts.com/t/c7fb3c048c8214048961e7275273db9d.woff2")
+            format("woff2"),
+        url("https://db.onlinewebfonts.com/t/c7fb3c048c8214048961e7275273db9d.woff")
+            format("woff"),
+        url("https://db.onlinewebfonts.com/t/c7fb3c048c8214048961e7275273db9d.ttf")
+            format("truetype"),
+        url("https://db.onlinewebfonts.com/t/c7fb3c048c8214048961e7275273db9d.svg#DB Screen Sans Digital")
+            format("svg");
+}
+
+:root {
+    --bg: #f8f8f8;
+    --bg-white: #fffeff;
+
+    --text: #2d313b;
+    --text-gray: #666873;
+    --text-light: #f1f3f6;
+    --text-light-secondary: #898b95;
+
+    --red: #dc3529;
+}
+
+html,
+body,
+main {
+    font-family: "DB Screen Sans Digital";
+    background-color: var(--bg);
+    color: var(--text);
+}
